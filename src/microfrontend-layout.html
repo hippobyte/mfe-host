@@ -1,25 +1,102 @@
-<single-spa-router>
-  <!--
+<section>
+  <single-spa-router>
+    <style type="text/css">
+      #mfe-application-container {
+        display: grid;
+        width: 100%;
+        height: 100vh;
+        grid-template:
+          [header-left] "head head" [header-right]
+          [main-left] "nav  main" 1fr [main-right]
+          [footer-left] "nav  foot" [footer-right]
+          / auto 1fr;
+      }
 
-    This is the single-spa Layout Definition for your microfrontends.
-    See https://single-spa.js.org/docs/layout-definition/ for more information.
+      #mfe-application-header {
+        grid-area: head;
+      }
 
-  -->
+      #mfe-application-nav {
+        grid-area: nav;
+      }
 
-  <!-- Example layouts you might find helpful:
+      #mfe-application-main {
+        grid-area: main;
+      }
 
-  <nav>
-    <application name="@org/navbar"></application>
-  </nav>
-  <route path="settings">
-    <application name="@org/settings"></application>
-  </route>
+      #mfe-application-footer {
+        grid-area: foot;
+      }
+    </style>
+    <div id="mfe-application-container">
+      <route path="/" exact>
+        <div id="mfe-application-header">
+          <application name="@hippobyte/header"></application>
+        </div>
+        <div id="mfe-application-nav">
+          <application name="@hippobyte/nav"></application>
+        </div>
+        <div id="mfe-application-main">
+          <application name="@hippobyte/registry"></application>
+        </div>
+        <div id="mfe-application-footer">
+          <application name="@hippobyte/footer"></application>
+        </div>
+      </route>
 
-  -->
+      <route path="/registry" exact>
+        <div id="mfe-application-main">
+          <application name="@hippobyte/registry"></application>
+        </div>
+      </route>
+      
+      <route path="/header" exact>
+        <div id="mfe-application-header">
+          <application name="@hippobyte/header"></application>
+        </div>
+      </route>
 
-  <main>
-    <route default>
-      <application name="@single-spa/welcome"></application>
-    </route>
-  </main>
-</single-spa-router>
+      <route path="/nav" exact>
+        <application name="@hippobyte/nav"></application>
+      </route>
+
+      <route path="/footer" exact>
+        <application name="@hippobyte/footer"></application>
+      </route>
+
+      <route path="/new">
+        <div id="host-header">
+          <application name="@hippobyte/header"></application>
+        </div>
+        <div id="host-nav">
+          <application name="@hippobyte/nav"></application>
+        </div>
+        <div id="host-footer">
+          <application name="@hippobyte/footer"></application>
+        </div>
+      </route>
+
+      <route default>
+        <main class="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
+          <h1 class="text-9xl font-extrabold text-white tracking-widest">404</h1>
+          <div class="bg-[#FF6A3D] px-2 text-sm rounded rotate-12 absolute">
+            Page Not Found
+          </div>
+          <button class="mt-5">
+              <a
+                class="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring"
+              >
+                <span
+                  class="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#FF6A3D] group-hover:translate-y-0 group-hover:translate-x-0"
+                ></span>
+        
+                <span class="relative block px-8 py-3 bg-[#1A2238] border border-current">
+                  <router-link to="/">Go Home</router-link>
+                </span>
+              </a>
+            </button>
+        </main>
+      </route>
+    </div>
+  </single-spa-router>
+</section>

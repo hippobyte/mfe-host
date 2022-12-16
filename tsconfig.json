@@ -1,6 +1,6 @@
 {
   "extends": "ts-config-single-spa",
-  "files": ["src/hippobyte-root-config.ts"],
+  "files": ["src/hippobyte-host.ts"],
   "compilerOptions": {
     "declarationDir": "dist"
   },

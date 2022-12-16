@@ -44,16 +44,7 @@
   <!-- <script type="systemjs-importmap" src="/importmap.json"></script> -->
 
   <% if (isLocal) { %>
-  <script type="systemjs-importmap">
-    {
-      "imports": {
-        "@single-spa/welcome": "https://unpkg.com/single-spa-welcome/dist/single-spa-welcome.js",
-        "@hippobyte/root-config": "//localhost:9000/hippobyte-root-config.js",
-        "react": "https://unpkg.com/react@18/umd/react.production.min.js",
-        "react-dom": "https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
-      }
-    }
-  </script>
+    <script type="systemjs-importmap" src="https://hippobyte-deploys.s3.us-west-2.amazonaws.com/importmap1.json"></script>
   <% } %>
 
   <!--
@@ -77,7 +68,8 @@
     You need to enable JavaScript to run this app.
   </noscript>
   <script>
-    System.import('@hippobyte/root-config');
+    System.import('@hippobyte/host');
+    System.import('@hippobyte/stylekit');
   </script>
   <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
 </body>

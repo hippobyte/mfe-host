@@ -1,19 +1,20 @@
+const package = require('./package.json');
 const { merge } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-ts");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = (webpackConfigEnv, argv) => {
   const orgName = "hippobyte";
+
   const defaultConfig = singleSpaDefaults({
     orgName,
-    projectName: "root-config",
+    projectName: "host",
     webpackConfigEnv,
     argv,
     disableHtmlGeneration: true,
   });
 
   return merge(defaultConfig, {
-    // modify the webpack config however you'd like to by adding to this object
     plugins: [
       new HtmlWebpackPlugin({
         inject: false,
@@ -24,5 +25,16 @@ module.exports = (webpackConfigEnv, argv) => {
         },
       }),
     ],
+    output: {
+      filename: (pathData) => {
+        if (webpackConfigEnv.production) {
+          const namespace = package.name.split('@').pop().split('/').join('.');
+          return pathData.chunk.name === 'main' ? `${namespace}.[name]${contenthash}.js` : `${namespace}.[name]/${namespace}.[name]${contenthash}.js`;
+        } else {
+          const namespace = package.name.split('@').pop().split('/').join('-');
+          return pathData.chunk.name === 'main' ? `${namespace}.js` : `${namespace}/[name].js`;
+        }
+      }
+    }
   });
 };
