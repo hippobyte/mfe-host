@@ -42,9 +42,18 @@
 
   <!-- Add your organization's prod import map URL to this script's src  -->
   <!-- <script type="systemjs-importmap" src="/importmap.json"></script> -->
+  <script type="systemjs-importmap" rel=preconnect src="https://hippobyte-deploys.s3.us-west-2.amazonaws.com/importmap1.json"></script>
 
   <% if (isLocal) { %>
-    <script type="systemjs-importmap" src="https://hippobyte-deploys.s3.us-west-2.amazonaws.com/importmap1.json"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="systemjs-importmap">
+      {
+        "imports": {
+          "@hippobyte/host": "//localhost:9000/hippobyte-host.js",
+          "@hippobyte/mfe-sdk": "//localhost:8085/hippobyte.mfe-sdk.main.b6c756a5e9c6cf85c796.js"
+        }
+      }
+    </script>
   <% } %>
 
   <!--
@@ -70,6 +79,7 @@
   <script>
     System.import('@hippobyte/host');
     System.import('@hippobyte/stylekit');
+    System.import('@hippobyte/mfe-sdk');
   </script>
   <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
 </body>
