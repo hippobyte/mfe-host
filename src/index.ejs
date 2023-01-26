@@ -31,14 +31,34 @@
 
     More information about shared dependencies can be found at https://single-spa.js.org/docs/recommended-setup#sharing-with-import-maps.
   -->
+
   <script type="systemjs-importmap" src="https://d22o3gdv14l7iw.cloudfront.net/importmap.json"></script>
+  <script type="systemjs-importmap">
+    {
+      "imports": {
+        "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js"
+      }
+    }
+  </script>
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js" as="script">
+
+  <!-- Add your organization's prod import map URL to this script's src  -->
+  <!-- <script type="systemjs-importmap" src="/importmap.json"></script> -->
 
   <% if (isLocal) { %>
   <script type="systemjs-importmap">
     {
       "imports": {
-        "@hippobyte/host": "//localhost:9000/hippobyte-host.js"
+        "react": "https://unpkg.com/react@18/umd/react.production.min.js",
+        "react-dom": "https://unpkg.com/react-dom@18/umd/react-dom.production.min.js",
+        "@hippobyte/host": "//localhost:9000/hippobyte-host.js",
+        "@hippobyte/footer": "//localhost:8080/hippobyte-footer.js",
+        "@hippobyte/stylekit": "//localhost:8081/hippobyte-stylekit.js",
+        "@hippobyte/nav": "//localhost:8082/hippobyte-nav.js",
+        "@hippobyte/header": "//localhost:8083/hippobyte-header.js",
+        "@hippobyte/app-react": "//localhost:8084/hippobyte-app-react.js",
+        "@hippobyte/app-test": "//localhost:8085/hippobyte-app-test.js",
+        "@hippobyte/mfe-sdk": "//localhost:8086/hippobyte-mfe-sdk.js"
       }
     }
   </script>
@@ -65,8 +85,9 @@
     You need to enable JavaScript to run this app.
   </noscript>
   <script>
+    System.import('@hippobyte/host');
     System.import('@hippobyte/stylekit');
-    System.import('@hippobyte/mfe-sdk');
+    Sestem.import('@hippobyte/mfe-sdk');
   </script>
   <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
 </body>
