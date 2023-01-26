@@ -1,0 +1,198 @@
+<single-spa-router>
+  <style type="text/css">
+    #hippobyte-mfe-container {
+      display: grid;
+      height: 100vh;
+      width: 100%;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+      "header  header "
+      "nav main"
+      "nav footer";
+    }
+    #hippobyte-mfe-nav {
+      grid-area: nav;
+    }
+
+    #hippobyte-mfe-main {
+      grid-area: main;
+    }
+
+    #hippobyte-mfe-header {
+      grid-area: header;
+    }
+
+    #hippobyte-mfe-footer {
+      grid-area: footer;
+    }
+    #error-container {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      font-size: 6rem;
+      font-weight: 800;
+      background-color: black;
+      color: white;
+    }
+  </style>
+
+  <route path="/" exact>
+    <div id="hippobyte-mfe-container">
+      <div id="hippobyte-mfe-nav">
+        <application name="@hippobyte/nav"></application>
+      </div>
+      <div id="hippobyte-mfe-main">
+        
+      </div>
+    </div>
+  </route>
+
+  <route path="/react" exact>
+    <div id="hippobyte-mfe-container">
+      <div id="hippobyte-mfe-header">
+        <application name="@hippobyte/header"></application>
+      </div>
+      <div id="hippobyte-mfe-nav">
+        <application name="@hippobyte/nav"></application>
+      </div>
+      <div id="hippobyte-mfe-main">
+        <application name="@hippobyte/app-react"></application>
+      </div>
+      <div id="hippobyte-mfe-footer">
+        <application name="@hippobyte/footer"></application>
+      </div>
+    </div>
+  </route>
+
+  <route path="/reactive" exact>
+    <div id="hippobyte-mfe-container">
+      <div id="hippobyte-mfe-header">
+        <application name="@hippobyte/header"></application>
+      </div>
+      <div id="hippobyte-mfe-nav">
+        <application name="@hippobyte/nav"></application>
+      </div>
+      <div id="hippobyte-mfe-main">
+        <application name="@hippobyte/app-react"></application>
+        <application name="@hippobyte/app-test"></application>
+      </div>
+      <div id="hippobyte-mfe-footer">
+        <application name="@hippobyte/footer"></application>
+      </div>
+    </div>
+  </route>
+
+  <route path="/static-html" exact>
+    <style type="text/css">
+      #hippobyte-mfe-container {
+        display: grid;
+        height: 100vh;
+        width: 100%;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+        "header  header "
+        "nav main"
+        "nav footer";
+      }
+
+      p {
+        font-size: 1.2rem;
+        line-height: 1.5rem;
+        margin: 1.2rem;
+        font-weight: 300;
+        color: #222;
+      }
+
+      strong {
+        font-weight: 600;
+        margin: 0 .4rem 0 1rem;
+      }
+    </style>
+    <div id="hippobyte-mfe-container">
+      <div id="hippobyte-mfe-header">
+        <application name="@hippobyte/header"></application>
+      </div>
+      <div id="hippobyte-mfe-nav">
+        <application name="@hippobyte/nav"></application>
+      </div>
+      <div id="hippobyte-mfe-main">
+        <p style="font-weight: 500">A couple of interesting things are taking place here.</p>
+        <p><strong>1. </strong>The Footer MFE is gone. It's not hidden, it was never mounted for this route, inspect the browser network tab, hippobyte-footer was not requested.</p>
+        <p><strong>2. </strong>This main content is not an MFE, it's static HTML provided for this specific route.</p>
+        <p>
+          <a style="color: blue" href="/an-mfe-and-static-html">This plain HTML anchor tag will take your to another example.</a> 
+          <br /><small><em>notice the full page refresh after clicking the link</em></small>
+        </p>
+      </div>
+    </div>
+  </route>
+
+  <route path="/an-mfe-and-static-html" exact>
+    <style type="text/css">
+      #mfe-columns {
+        display: grid;
+        margin: 2rem;
+        grid-template-columns: 400px 1fr;
+        grid-template-areas:
+        "one two "
+      }
+
+      #col-one {
+        grid-area: one;
+        background-color: beige;
+      }
+
+      #col-two {
+        grid-area: two;
+        background-color: lightcyan;
+      }
+
+      p {
+        font-size: 1rem;
+        line-height: 1.2rem;
+        margin: .8rem;
+        font-weight: 300;
+        color: #222;
+      }
+
+      strong {
+        font-weight: 600;
+        margin: 0 .4rem 0 1rem;
+      }
+    </style>
+    <div id="hippobyte-mfe-container">
+      <div id="hippobyte-mfe-header">
+        <application name="@hippobyte/header"></application>
+      </div>
+      <div id="hippobyte-mfe-nav">
+        <application name="@hippobyte/nav"></application>
+      </div>
+      <div id="hippobyte-mfe-main">
+        <div id="mfe-columns">
+          <div id="col-one">
+            <p style="font-weight: 500">
+              Static HTML and an MFE can co-exist on the same page - all orchestrated by the <a style="color: blue" href="https://single-spa.js.org/docs/layout-overview/">single-spa layout engine</a>.
+            </p>
+
+            <p style="font-weight: 500">What happens to the MFE state when you navigate away from this page?</p>
+            <p><strong>1. </strong>Make the adjacent MFE smile.</p>
+            <p><strong>2. </strong>Then click on the "React" link in left-nav, state will be intact.</p>
+          </div>
+          <div id="col-two">
+            <application name="@hippobyte/app-react"></application>
+          </div>
+        </div>
+      </div>
+    </div>
+  </route>
+
+  <route default>
+    <div id="error-container">
+      <h1>404 - Not Found</h1>
+    </div>
+  </route>
+</single-spa-router>
